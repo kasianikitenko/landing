@@ -11,8 +11,6 @@
   const GEOM = 'sine.inOut';
   const REVEAL = 'power2.out';
   let workTL;
-  let navigating = false;
-  let navUnlockTimer = 0;
 
   function scaleStages() {
     const scale = Math.min(1, window.innerWidth / 1440, window.innerHeight / 900);
@@ -21,7 +19,6 @@
 
   scaleStages();
 
-  // Landing entrance: reveal the headline as two written lines rather than showing it immediately.
   if (window.scrollY < 8 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const introTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
     introTL
@@ -36,21 +33,19 @@
       .fromTo('.scroll-cta', { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .6 }, 1.12);
   }
 
-  // Very subtle affordance movement only.
   gsap.to('.scroll-cta span', { y: 3, duration: 1.65, repeat: -1, yoyo: true, ease: 'sine.inOut' });
   gsap.to('.chapter-arrow--bottom', { y: 3, duration: 1.7, repeat: -1, yoyo: true, ease: 'sine.inOut' });
   gsap.to('.chapter-arrow--top', { y: -3, duration: 1.7, repeat: -1, yoyo: true, ease: 'sine.inOut' });
 
-  // HERO: short, continuous exit. It stays visually present until Work takes over, avoiding a blank phase.
   const heroTL = gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
       id: 'heroPin',
       trigger: '.hero-chapter',
       start: 'top top',
-      end: '+=78%',
+      end: '+=92%',
       pin: '.hero-viewport',
-      scrub: .45,
+      scrub: .9,
       anticipatePin: 1
     }
   });
@@ -75,94 +70,111 @@
   const absY = (name, absoluteTop) => absoluteTop - baseY[name];
   const hold = Array.from({ length: 4 }, () => ({ v: 0 }));
 
+  function softWorkSnap(value) {
+    if (!workTL) return value;
+    const labels = ['work', 'qualtrics', 'travel', 'investing', 'clinical'];
+    const points = labels
+      .map(label => workTL.labels[label] / workTL.duration())
+      .filter(Number.isFinite);
+    if (!points.length) return value;
+    let nearest = points[0];
+    for (let i = 1; i < points.length; i++) {
+      if (Math.abs(points[i] - value) < Math.abs(nearest - value)) nearest = points[i];
+    }
+    return Math.abs(nearest - value) <= .065 ? nearest : value;
+  }
+
   workTL = gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
       id: 'workPin',
       trigger: '.work-chapter',
       start: 'top top',
-      end: '+=430%',
+      end: '+=540%',
       pin: '.work-viewport',
-      scrub: .5,
+      scrub: 1.05,
       anticipatePin: 1,
+      snap: {
+        snapTo: softWorkSnap,
+        duration: { min: .28, max: .55 },
+        delay: .24,
+        ease: 'sine.inOut',
+        inertia: false
+      },
       onUpdate: self => updateActiveProject(self.progress)
     }
   });
 
   workTL.addLabel('work', 0);
 
-  function revealCase(index, at, duration = .72) {
+  function revealCase(index, at, duration = .8) {
     workTL
       .to(cases[index], { clipPath: 'inset(0% 0 0% 0)', opacity: 1, duration, ease: GEOM }, at)
-      .to(cases[index].querySelector('.case-lead'), { y: 0, opacity: 1, duration: .52, ease: REVEAL }, at + .12)
-      .to(cases[index].querySelector('.case-visual'), { y: 0, opacity: 1, duration: .62, ease: REVEAL }, at + .16)
-      .to(cases[index].querySelector('.case-grid'), { y: 0, opacity: 1, duration: .52, ease: REVEAL }, at + .22);
+      .to(cases[index].querySelector('.case-lead'), { y: 0, opacity: 1, duration: .58, ease: REVEAL }, at + .14)
+      .to(cases[index].querySelector('.case-visual'), { y: 0, opacity: 1, duration: .7, ease: REVEAL }, at + .18)
+      .to(cases[index].querySelector('.case-grid'), { y: 0, opacity: 1, duration: .58, ease: REVEAL }, at + .25);
   }
 
   function hideCase(index, at) {
     workTL
-      .to(cases[index].querySelector('.case-lead'), { y: -14, opacity: 0, duration: .35, ease: GEOM }, at)
-      .to(cases[index].querySelector('.case-visual'), { y: -18, opacity: .15, duration: .42, ease: GEOM }, at)
-      .to(cases[index].querySelector('.case-grid'), { y: -14, opacity: 0, duration: .35, ease: GEOM }, at + .02)
-      .to(cases[index], { clipPath: 'inset(0 0 100% 0)', opacity: 0, duration: .5, ease: GEOM }, at + .18);
+      .to(cases[index].querySelector('.case-lead'), { y: -14, opacity: 0, duration: .42, ease: GEOM }, at)
+      .to(cases[index].querySelector('.case-visual'), { y: -18, opacity: .15, duration: .48, ease: GEOM }, at)
+      .to(cases[index].querySelector('.case-grid'), { y: -14, opacity: 0, duration: .42, ease: GEOM }, at + .02)
+      .to(cases[index], { clipPath: 'inset(0 0 100% 0)', opacity: 0, duration: .58, ease: GEOM }, at + .2);
   }
 
-  // Work list -> Qualtrics.
   workTL
-    .to('.work-heading', { y: -58, opacity: .25, duration: .65, ease: GEOM }, 0)
-    .to('.work-copy', { y: -42, opacity: .22, duration: .65, ease: GEOM }, 0)
-    .to(projects[0], { x: -196, y: absY('qualtrics', card.qualtrics.top), width: 1392, height: card.qualtrics.height, backgroundColor: '#fff', opacity: 1, filter: 'blur(0px)', duration: .82, ease: GEOM }, .02)
-    .to(bars[0], { paddingLeft: 196, paddingRight: 196, borderColor: 'rgba(0,0,0,0)', duration: .78, ease: GEOM }, .02)
-    .to(bars[0].querySelector('.chev'), { rotation: 180, duration: .6, ease: GEOM }, .16)
-    .to(projects[1], { y: 285, filter: 'blur(2px)', opacity: .5, duration: .78, ease: GEOM }, .04)
-    .to(projects[2], { y: 247, filter: 'blur(2px)', opacity: .45, duration: .78, ease: GEOM }, .05)
-    .to(projects[3], { y: 210, filter: 'blur(2px)', opacity: .4, duration: .78, ease: GEOM }, .06);
-  revealCase(0, .34);
-  workTL.addLabel('qualtrics').to(hold[0], { v: 1, duration: .52 });
+    .to('.work-heading', { y: -58, opacity: .25, duration: .75, ease: GEOM }, 0)
+    .to('.work-copy', { y: -42, opacity: .22, duration: .75, ease: GEOM }, 0)
+    .to(projects[0], { x: -196, y: absY('qualtrics', card.qualtrics.top), width: 1392, height: card.qualtrics.height, backgroundColor: '#fff', opacity: 1, filter: 'blur(0px)', duration: .95, ease: GEOM }, .02)
+    .to(bars[0], { paddingLeft: 196, paddingRight: 196, borderColor: 'rgba(0,0,0,0)', duration: .9, ease: GEOM }, .02)
+    .to(bars[0].querySelector('.chev'), { rotation: 180, duration: .72, ease: GEOM }, .16)
+    .to(projects[1], { y: 285, filter: 'blur(2px)', opacity: .5, duration: .9, ease: GEOM }, .04)
+    .to(projects[2], { y: 247, filter: 'blur(2px)', opacity: .45, duration: .9, ease: GEOM }, .05)
+    .to(projects[3], { y: 210, filter: 'blur(2px)', opacity: .4, duration: .9, ease: GEOM }, .06);
+  revealCase(0, .4);
+  workTL.addLabel('qualtrics').to(hold[0], { v: 1, duration: .95, ease: 'none' });
 
-  // Qualtrics -> Travel.
   let t = workTL.duration();
   hideCase(0, t);
   workTL
-    .to(projects[0], { x: 0, y: absY('qualtrics', 76), width: 1000, height: 72, backgroundColor: 'rgba(255,255,255,0)', filter: 'blur(2px)', opacity: .42, duration: .78, ease: GEOM }, t + .12)
-    .to(bars[0], { paddingLeft: 0, paddingRight: 0, borderColor: '#000', duration: .7, ease: GEOM }, t + .12)
-    .to(bars[0].querySelector('.chev'), { rotation: 0, duration: .55, ease: GEOM }, t + .14)
-    .to(projects[1], { x: -196, y: absY('travel', card.travel.top), width: 1392, height: card.travel.height, backgroundColor: '#fff', filter: 'blur(0px)', opacity: 1, duration: .84, ease: GEOM }, t + .08)
-    .to(bars[1], { paddingLeft: 196, paddingRight: 196, borderColor: 'rgba(0,0,0,0)', duration: .78, ease: GEOM }, t + .08)
-    .to(bars[1].querySelector('.chev'), { rotation: 180, duration: .58, ease: GEOM }, t + .2)
-    .to(projects[2], { y: 200, opacity: .45, filter: 'blur(2px)', duration: .75, ease: GEOM }, t + .12)
-    .to(projects[3], { y: 165, opacity: .4, filter: 'blur(2px)', duration: .75, ease: GEOM }, t + .13);
-  revealCase(1, t + .42);
-  workTL.addLabel('travel').to(hold[1], { v: 1, duration: .52 });
+    .to(projects[0], { x: 0, y: absY('qualtrics', 76), width: 1000, height: 72, backgroundColor: 'rgba(255,255,255,0)', filter: 'blur(2px)', opacity: .42, duration: .9, ease: GEOM }, t + .14)
+    .to(bars[0], { paddingLeft: 0, paddingRight: 0, borderColor: '#000', duration: .82, ease: GEOM }, t + .14)
+    .to(bars[0].querySelector('.chev'), { rotation: 0, duration: .65, ease: GEOM }, t + .16)
+    .to(projects[1], { x: -196, y: absY('travel', card.travel.top), width: 1392, height: card.travel.height, backgroundColor: '#fff', filter: 'blur(0px)', opacity: 1, duration: .98, ease: GEOM }, t + .1)
+    .to(bars[1], { paddingLeft: 196, paddingRight: 196, borderColor: 'rgba(0,0,0,0)', duration: .9, ease: GEOM }, t + .1)
+    .to(bars[1].querySelector('.chev'), { rotation: 180, duration: .68, ease: GEOM }, t + .22)
+    .to(projects[2], { y: 200, opacity: .45, filter: 'blur(2px)', duration: .88, ease: GEOM }, t + .14)
+    .to(projects[3], { y: 165, opacity: .4, filter: 'blur(2px)', duration: .88, ease: GEOM }, t + .15);
+  revealCase(1, t + .5);
+  workTL.addLabel('travel').to(hold[1], { v: 1, duration: .98, ease: 'none' });
 
-  // Travel -> Investing.
   t = workTL.duration();
   hideCase(1, t);
   workTL
-    .to(projects[0], { y: absY('qualtrics', -72), opacity: .08, filter: 'blur(6px)', duration: .65, ease: GEOM }, t + .08)
-    .to(projects[1], { x: 0, y: absY('travel', 76), width: 1000, height: 72, backgroundColor: 'rgba(255,255,255,0)', filter: 'blur(2px)', opacity: .42, duration: .78, ease: GEOM }, t + .12)
-    .to(bars[1], { paddingLeft: 0, paddingRight: 0, borderColor: '#000', duration: .7, ease: GEOM }, t + .12)
-    .to(bars[1].querySelector('.chev'), { rotation: 0, duration: .55, ease: GEOM }, t + .14)
-    .to(projects[2], { x: -196, y: absY('investing', card.investing.top), width: 1392, height: card.investing.height, backgroundColor: '#fff', filter: 'blur(0px)', opacity: 1, duration: .84, ease: GEOM }, t + .08)
-    .to(bars[2], { paddingLeft: 196, paddingRight: 196, borderColor: 'rgba(0,0,0,0)', duration: .78, ease: GEOM }, t + .08)
-    .to(bars[2].querySelector('.chev'), { rotation: 180, duration: .58, ease: GEOM }, t + .2)
-    .to(projects[3], { y: 115, opacity: .42, filter: 'blur(2px)', duration: .75, ease: GEOM }, t + .13);
-  revealCase(2, t + .42);
-  workTL.addLabel('investing').to(hold[2], { v: 1, duration: .52 });
+    .to(projects[0], { y: absY('qualtrics', -72), opacity: .08, filter: 'blur(6px)', duration: .76, ease: GEOM }, t + .1)
+    .to(projects[1], { x: 0, y: absY('travel', 76), width: 1000, height: 72, backgroundColor: 'rgba(255,255,255,0)', filter: 'blur(2px)', opacity: .42, duration: .9, ease: GEOM }, t + .14)
+    .to(bars[1], { paddingLeft: 0, paddingRight: 0, borderColor: '#000', duration: .82, ease: GEOM }, t + .14)
+    .to(bars[1].querySelector('.chev'), { rotation: 0, duration: .65, ease: GEOM }, t + .16)
+    .to(projects[2], { x: -196, y: absY('investing', card.investing.top), width: 1392, height: card.investing.height, backgroundColor: '#fff', filter: 'blur(0px)', opacity: 1, duration: .98, ease: GEOM }, t + .1)
+    .to(bars[2], { paddingLeft: 196, paddingRight: 196, borderColor: 'rgba(0,0,0,0)', duration: .9, ease: GEOM }, t + .1)
+    .to(bars[2].querySelector('.chev'), { rotation: 180, duration: .68, ease: GEOM }, t + .22)
+    .to(projects[3], { y: 115, opacity: .42, filter: 'blur(2px)', duration: .88, ease: GEOM }, t + .15);
+  revealCase(2, t + .5);
+  workTL.addLabel('investing').to(hold[2], { v: 1, duration: 1.0, ease: 'none' });
 
-  // Investing -> Clinical. Leave Clinical fully present at the end: no empty outro.
   t = workTL.duration();
   hideCase(2, t);
   workTL
-    .to(projects[1], { y: absY('travel', -72), opacity: .08, filter: 'blur(6px)', duration: .65, ease: GEOM }, t + .08)
-    .to(projects[2], { x: 0, y: absY('investing', 76), width: 1000, height: 72, backgroundColor: 'rgba(255,255,255,0)', filter: 'blur(2px)', opacity: .42, duration: .78, ease: GEOM }, t + .12)
-    .to(bars[2], { paddingLeft: 0, paddingRight: 0, borderColor: '#000', duration: .7, ease: GEOM }, t + .12)
-    .to(bars[2].querySelector('.chev'), { rotation: 0, duration: .55, ease: GEOM }, t + .14)
-    .to(projects[3], { x: -196, y: absY('clinical', card.clinical.top), width: 1392, height: card.clinical.height, backgroundColor: '#fff', filter: 'blur(0px)', opacity: 1, duration: .84, ease: GEOM }, t + .08)
-    .to(bars[3], { paddingLeft: 196, paddingRight: 196, borderColor: 'rgba(0,0,0,0)', duration: .78, ease: GEOM }, t + .08)
-    .to(bars[3].querySelector('.chev'), { rotation: 180, duration: .58, ease: GEOM }, t + .2);
-  revealCase(3, t + .42);
-  workTL.addLabel('clinical').to(hold[3], { v: 1, duration: .64 });
+    .to(projects[1], { y: absY('travel', -72), opacity: .08, filter: 'blur(6px)', duration: .76, ease: GEOM }, t + .1)
+    .to(projects[2], { x: 0, y: absY('investing', 76), width: 1000, height: 72, backgroundColor: 'rgba(255,255,255,0)', filter: 'blur(2px)', opacity: .42, duration: .9, ease: GEOM }, t + .14)
+    .to(bars[2], { paddingLeft: 0, paddingRight: 0, borderColor: '#000', duration: .82, ease: GEOM }, t + .14)
+    .to(bars[2].querySelector('.chev'), { rotation: 0, duration: .65, ease: GEOM }, t + .16)
+    .to(projects[3], { x: -196, y: absY('clinical', card.clinical.top), width: 1392, height: card.clinical.height, backgroundColor: '#fff', filter: 'blur(0px)', opacity: 1, duration: .98, ease: GEOM }, t + .1)
+    .to(bars[3], { paddingLeft: 196, paddingRight: 196, borderColor: 'rgba(0,0,0,0)', duration: .9, ease: GEOM }, t + .1)
+    .to(bars[3].querySelector('.chev'), { rotation: 180, duration: .68, ease: GEOM }, t + .22);
+  revealCase(3, t + .5);
+  workTL.addLabel('clinical').to(hold[3], { v: 1, duration: 1.05, ease: 'none' });
 
   function updateActiveProject(progress) {
     if (!workTL) return;
@@ -176,15 +188,14 @@
     projects.forEach(project => project.classList.toggle('is-active', project.dataset.project === active && dist < .12));
   }
 
-  // Approach appears directly from the previous state; no blank transition phase.
   const approachTL = gsap.timeline({
     scrollTrigger: {
       id: 'approachPin',
       trigger: '.approach-chapter',
       start: 'top top',
-      end: '+=78%',
+      end: '+=96%',
       pin: '.approach-viewport',
-      scrub: .45,
+      scrub: .9,
       anticipatePin: 1
     }
   });
@@ -199,9 +210,9 @@
       id: 'teamsPin',
       trigger: '.teams-chapter',
       start: 'top top',
-      end: '+=55%',
+      end: '+=72%',
       pin: '.teams-viewport',
-      scrub: .4,
+      scrub: .8,
       anticipatePin: 1
     }
   });
@@ -241,17 +252,12 @@
     return nearest;
   }
 
-  function navigateToY(y, duration = .82) {
-    navigating = true;
-    clearTimeout(navUnlockTimer);
+  function navigateToY(y, duration = 1.08) {
     gsap.to(window, {
-      scrollTo: { y, autoKill: false },
+      scrollTo: { y, autoKill: true },
       duration,
-      ease: 'power2.inOut',
-      overwrite: true,
-      onComplete: () => {
-        navUnlockTimer = setTimeout(() => { navigating = false; }, 120);
-      }
+      ease: 'sine.inOut',
+      overwrite: true
     });
   }
 
@@ -260,21 +266,7 @@
     if (target) navigateToY(target.y);
   }
 
-  // Desktop/trackpad: every deliberate scroll gesture resolves to one designed viewport state.
-  const discreteInput = matchMedia('(min-width: 901px) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (discreteInput) {
-    window.addEventListener('wheel', event => {
-      if (Math.abs(event.deltaY) < 8) return;
-      event.preventDefault();
-      if (navigating) return;
-      const targets = getStateTargets();
-      if (!targets.length) return;
-      const current = nearestStateIndex(targets);
-      const direction = event.deltaY > 0 ? 1 : -1;
-      const next = Math.max(0, Math.min(targets.length - 1, current + direction));
-      if (next !== current) navigateToY(targets[next].y);
-    }, { passive: false });
-  }
+  // Wheel/trackpad is intentionally left native. No forced one-gesture jumps.
 
   document.addEventListener('click', event => {
     const project = event.target.closest('.js-project');
@@ -302,7 +294,6 @@
     }
   });
 
-  // Keep pointer response restrained; no spring return.
   bars.forEach(bar => {
     const title = bar.querySelector('strong');
     const chev = bar.querySelector('.chev');
