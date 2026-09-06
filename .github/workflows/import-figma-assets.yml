@@ -1,0 +1,51 @@
+name: Import Figma assets
+
+on:
+  push:
+    paths:
+      - '.github/workflows/import-figma-assets.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Figma assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/7e9b3724-8ee7-4adf-a7f9-928096a3cf2c.png' -o assets/qualtrics-gallery.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/75ce677c-6860-4d7d-acb3-6419873450bb.png' -o assets/travel-journey.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/0f495720-e02d-40f9-a8b0-d2b2b528fe82.png' -o assets/invest-1.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/2a489a9b-7327-4f9c-8c2f-247d072d34d6.png' -o assets/invest-2.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/6b6dce58-ac03-4f81-8b10-889b60888a0d.png' -o assets/invest-3.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/2c8283bd-945a-4d51-86a6-bd1712e2429a.png' -o assets/invest-4.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/21dc7014-267e-4593-9911-de19c65b86eb.png' -o assets/invest-5.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/e5cc0c02-4784-49e5-9dc4-a9118c44f5d3.png' -o assets/invest-6.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/33b8ed51-c0a4-47be-a53c-651ed317a093.png' -o assets/clinical-1.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/669baea5-6605-4d5e-87df-c99ed738151b.png' -o assets/clinical-2.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/f58397c1-8a7a-4e46-8c1f-e06b0ac3b9b8.png' -o assets/approach-1.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/1500864a-7515-4dc2-b9d2-b6e42f2323e9.png' -o assets/approach-2.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/f875c4ea-cc4c-4495-a909-ffa157671094.png' -o assets/approach-3.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/4c6f7a77-ecfd-4bb1-ab9a-d6240efba12e.png' -o assets/approach-board-1.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/04996813-0ac7-4055-b60c-a4b174749cbd.png' -o assets/approach-board-2.png
+          curl -fL --retry 3 'https://www.figma.com/api/mcp/asset/066c36b4-e6fc-42a2-8540-1a5f8c0c2458.png' -o assets/teams-photo.png
+
+      - name: Commit assets
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets
+          if git diff --cached --quiet; then
+            echo 'No asset changes to commit.'
+          else
+            git commit -m 'Add Figma portfolio assets'
+            git push
+          fi
