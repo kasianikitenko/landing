@@ -4,205 +4,104 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kate Nikitenko — Portfolio</title>
-  <meta name="description" content="Portfolio of Kate Nikitenko — UX direction, product innovation, AI experiences, research, and design strategy." />
+  <meta name="description" content="UX direction, AI product innovation, research and experience strategy by Kate Nikitenko." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main>
-    <section class="screen hero" id="top">
-      <p class="intro">Hi! I’m Kate Nikitenko</p>
-      <h1 class="headline"><span>FROM DIRECTION</span><span>TO DETAIL.</span></h1>
-      <div class="about" aria-labelledby="about-title">
-        <h2 id="about-title">About me</h2>
-        <div class="about-copy">
-          <p>I’ve spent 12+ years shaping complex digital products through research, strategy, conceptual design, and storytelling.</p>
-          <p>Today, much of my work focuses on AI product innovation and Human-AI Interaction — exploring new capabilities, prototyping emerging experiences, and turning ambiguity into clear product direction.</p>
-          <p>I work across the full design process, from understanding the problem and shaping the strategy to defining interaction models, testing concepts, and carrying ideas through implementation.</p>
-        </div>
-      </div>
-      <a class="explore" href="#work"><span>Scroll to explore my work</span><span class="arrow" aria-hidden="true">↓</span></a>
-    </section>
+  <main class="experience" id="experience">
+    <div class="stage-shell">
+      <div class="stage" id="stage">
+        <section class="scene scene-hero" data-scene="hero" aria-label="Introduction">
+          <p class="hero-intro">Hi! I’m Kate Nikitenko</p>
+          <h1 class="hero-title"><span>FROM DIRECTION</span><span>TO DETAIL.</span></h1>
+          <div class="hero-about"><h2>About me</h2><div><p>I’ve spent 12+ years shaping complex digital products through research, strategy, conceptual design, and storytelling.</p><p>Today, much of my work focuses on AI product innovation and Human-AI Interaction — exploring new capabilities, prototyping emerging experiences, and turning ambiguity into clear product direction.</p><p>I work across the full design process, from understanding the problem and shaping the strategy to defining interaction models, testing concepts, and carrying ideas through implementation.</p></div></div>
+          <button class="scroll-cta js-go" data-go="work">Scroll to explore my work <span>↓</span></button>
+        </section>
 
-    <section class="screen work-screen" id="work" aria-labelledby="work-title">
-      <a class="screen-arrow screen-arrow--top" href="#top" aria-label="Back to introduction">↑</a>
-      <h2 class="section-title" id="work-title">SELECTED WORK</h2>
-      <div class="work-intro">
-        <p>My work often begins before the solution is clear. I use research, conceptual design, experimentation, and storytelling to understand the problem, explore what is possible, and make product decisions tangible enough to test, challenge, and build.</p>
-        <p class="work-intro__nda">Most of my work is under NDA. Additional case studies, visuals, and detailed product examples are available during a live portfolio walkthrough.</p>
-      </div>
-      <nav class="work-list" aria-label="Selected case studies">
-        <a class="work-row" href="#qualtrics"><strong>QUALTRICS</strong><span>CURRENT</span><span class="chevron">⌄</span></a>
-        <a class="work-row" href="#travel"><strong>AI-ASSISTED TRAVEL PLANNING</strong><span>2025</span><span class="chevron">⌄</span></a>
-        <a class="work-row" href="#investing"><strong>PERSONALISED INVESTING</strong><span>2022-2024</span><span class="chevron">⌄</span></a>
-        <a class="work-row work-row--last" href="#clinical"><strong>CLINICAL INTELLIGENCE</strong><span>2019-2021</span><span class="chevron">⌄</span></a>
-      </nav>
-      <a class="screen-arrow screen-arrow--bottom" href="#qualtrics" aria-label="Next: Qualtrics">↓</a>
-    </section>
+        <section class="scene scene-work" data-scene="work" aria-label="Selected work">
+          <button class="nav-arrow nav-arrow-top js-go" data-go="hero" aria-label="Previous section">↑</button>
+          <h2 class="scene-heading">SELECTED WORK</h2>
+          <div class="work-copy"><p>My work often begins before the solution is clear. I use research, conceptual design, experimentation, and storytelling to understand the problem, explore what is possible, and make product decisions tangible enough to test, challenge, and build.</p><p><strong>Most of my work is under NDA. Additional case studies, visuals, and detailed product examples are available during a live portfolio walkthrough.</strong></p></div>
+          <div class="project-list">
+            <button class="project-row js-go" data-go="qualtrics"><strong>QUALTRICS</strong><span>CURRENT</span><b>⌄</b></button>
+            <button class="project-row js-go" data-go="travel"><strong>AI-ASSISTED TRAVEL PLANNING</strong><span>2025</span><b>⌄</b></button>
+            <button class="project-row js-go" data-go="investing"><strong>PERSONALISED INVESTING</strong><span>2022-2024</span><b>⌄</b></button>
+            <button class="project-row js-go" data-go="clinical"><strong>CLINICAL INTELLIGENCE</strong><span>2019-2021</span><b>⌄</b></button>
+          </div>
+          <button class="nav-arrow nav-arrow-bottom js-go" data-go="qualtrics" aria-label="Next section">↓</button>
+        </section>
 
-    <section class="screen case-screen case-screen--qualtrics" id="qualtrics" aria-labelledby="qualtrics-title">
-      <article class="case-card case-card--qualtrics">
-        <div class="case-header">
-          <h2 id="qualtrics-title">QUALTRICS</h2>
-          <a class="case-toggle" href="#work" aria-label="Collapse Qualtrics">⌃</a>
-        </div>
-        <p class="case-lead">I lead UX direction and product innovation for AI-powered experiences, from early concept development and research through interactive prototyping and implementation.</p>
-        <div class="case-gallery"><img src="assets/qualtrics-gallery.png" alt="Qualtrics AI product experience screens" /></div>
-        <div class="case-notes">
-          <div>
-            <h3>01 / THE OPPORTUNITY</h3>
-            <p>The work often starts before the solution exists. I explore where AI can create real value and what new interaction models the product may need.</p>
-            <h3>02 / THE EXPLORATION</h3>
-            <p>I combine research, conceptual design, and hands-on AI experimentation using storyboards, interactive prototypes, prompts, context, and model behaviour.</p>
+        <section class="scene scene-case" data-scene="qualtrics" aria-label="Qualtrics case study">
+          <div class="focus-card focus-card-qualtrics">
+            <div class="case-head"><h2>QUALTRICS</h2><span></span><button class="js-go" data-go="work">⌃</button></div>
+            <p class="case-lead">I lead UX direction and product innovation for AI-powered experiences, from early concept development and research through interactive prototyping and implementation.</p>
+            <img class="qualtrics-gallery" src="assets/qualtrics-gallery.png" alt="Qualtrics AI product experience screens" />
+            <div class="case-grid"><div><h3>01 / THE OPPORTUNITY</h3><p>The work often starts before the solution exists. I explore where AI can create real value and what new interaction models the product may need.</p><h3>02 / THE EXPLORATION</h3><p>I combine research, conceptual design, and hands-on AI experimentation using storyboards, interactive prototypes, prompts, context, and model behaviour.</p></div><div><h3>03 / THE INTERACTION MODEL</h3><p>I define Human-AI Interaction: what the system needs to understand, how it should behave, where people stay in control, and how feedback and output quality are handled.</p><h3>04 / WHAT CHANGED</h3><p>My concepts and experiments influence product direction, requirements, and technical decisions, while also shaping how Design, Product, and Engineering work together on AI products.</p></div></div>
           </div>
-          <div>
-            <h3>03 / THE INTERACTION MODEL</h3>
-            <p>I define Human-AI Interaction: what the system needs to understand, how it should behave, where people stay in control, and how feedback and output quality are handled.</p>
-            <h3>04 / WHAT CHANGED</h3>
-            <p>My concepts and experiments influence product direction, requirements, and technical decisions, while also shaping how Design, Product, and Engineering work together on AI products.</p>
-          </div>
-        </div>
-      </article>
-      <div class="case-context case-context--below">
-        <a href="#travel"><strong>AI-ASSISTED TRAVEL PLANNING</strong><span>2025</span><span>⌄</span></a>
-        <a href="#investing"><strong>PERSONALISED INVESTING</strong><span>2022-2024</span><span>⌄</span></a>
-        <a href="#clinical"><strong>CLINICAL INTELLIGENCE</strong><span>2019-2021</span><span>⌄</span></a>
-      </div>
-    </section>
+          <div class="ghost-list ghost-list-q"><div>AI-ASSISTED TRAVEL PLANNING <span>2025</span></div><div>PERSONALISED INVESTING <span>2022-2024</span></div><div>CLINICAL INTELLIGENCE <span>2019-2021</span></div></div>
+        </section>
 
-    <section class="screen case-screen" id="travel" aria-labelledby="travel-title">
-      <div class="case-context case-context--above"><a href="#qualtrics"><strong>QUALTRICS</strong><span>CURRENT</span><span>⌄</span></a></div>
-      <article class="case-card case-card--travel">
-        <div class="case-header case-header--dated">
-          <h2 id="travel-title">AI-ASSISTED TRAVEL PLANNING</h2>
-          <span class="case-year">2025</span>
-          <a class="case-toggle" href="#work" aria-label="Collapse AI-assisted travel planning">⌃</a>
-        </div>
-        <p class="case-lead">I led early UX discovery and product direction for an AI-assisted planning platform, connecting user needs, operational workflows, and technical constraints.</p>
-        <div class="case-gallery case-gallery--journey"><img src="assets/travel-journey.png" alt="Future-state journey map for AI-assisted travel planning" /></div>
-        <div class="case-notes">
-          <div>
-            <h3>01 / THE CHALLENGE</h3>
-            <p>Itinerary creation was slow and manual, with planning, content, and supplier coordination spread across fragmented workflows.</p>
-            <h3>02 / THE EXPLORATION</h3>
-            <p>I mapped the end-to-end process, researched user and business needs, and identified where AI could reduce effort without removing necessary human control.</p>
+        <section class="scene scene-case" data-scene="travel" aria-label="AI-assisted travel planning case study">
+          <div class="ghost-list ghost-list-top"><div>QUALTRICS <span>CURRENT</span></div></div>
+          <div class="focus-card focus-card-travel">
+            <div class="case-head"><h2>AI-ASSISTED TRAVEL PLANNING</h2><span>2025</span><button class="js-go" data-go="work">⌃</button></div>
+            <p class="case-lead">I led early UX discovery and product direction for an AI-assisted planning platform, connecting user needs, operational workflows, and technical constraints.</p>
+            <img class="travel-gallery" src="assets/travel-journey.png" alt="Future-state journey map for AI-assisted travel planning" />
+            <div class="case-grid"><div><h3>01 / THE CHALLENGE</h3><p>Itinerary creation was slow and manual, with planning, content, and supplier coordination spread across fragmented workflows.</p><h3>02 / THE EXPLORATION</h3><p>I mapped the end-to-end process, researched user and business needs, and identified where AI could reduce effort without removing necessary human control.</p></div><div><h3>03 / THE PRODUCT DIRECTION</h3><p>I designed early journeys around natural-language interaction, adaptive content, and review points, then validated the concepts with technical teams.</p><h3>04 / WHAT CHANGED</h3><p>Early validation showed a 50% reduction in itinerary-building time and established clearer integration points for AI across the service.</p></div></div>
           </div>
-          <div>
-            <h3>03 / THE PRODUCT DIRECTION</h3>
-            <p>I designed early journeys around natural-language interaction, adaptive content, and review points, then validated the concepts with technical teams.</p>
-            <h3>04 / WHAT CHANGED</h3>
-            <p>Early validation showed a 50% reduction in itinerary-building time and established clearer integration points for AI across the service.</p>
-          </div>
-        </div>
-      </article>
-      <div class="case-context case-context--below case-context--two">
-        <a href="#investing"><strong>PERSONALISED INVESTING</strong><span>2022-2024</span><span>⌄</span></a>
-        <a href="#clinical"><strong>CLINICAL INTELLIGENCE</strong><span>2019-2021</span><span>⌄</span></a>
-      </div>
-    </section>
+          <div class="ghost-list ghost-list-bottom"><div>PERSONALISED INVESTING <span>2022-2024</span></div><div>CLINICAL INTELLIGENCE <span>2019-2021</span></div></div>
+        </section>
 
-    <section class="screen case-screen" id="investing" aria-labelledby="investing-title">
-      <div class="case-context case-context--above"><a href="#travel"><strong>AI-ASSISTED TRAVEL PLANNING</strong><span>2025</span><span>⌄</span></a></div>
-      <article class="case-card case-card--investing">
-        <div class="case-header case-header--dated">
-          <h2 id="investing-title">PERSONALISED INVESTING</h2>
-          <span class="case-year">2022-2024</span>
-          <a class="case-toggle" href="#work" aria-label="Collapse Personalised investing">⌃</a>
-        </div>
-        <p class="case-lead">I led UX for a white-label investment platform for financial intermediaries, combining behavioural research, personalisation, and product design.</p>
-        <div class="invest-gallery" aria-label="Personalised investing product screens">
-          <img src="assets/invest-1.png" alt="Personalised investing recommendation screen" />
-          <img src="assets/invest-2.png" alt="Investment onboarding screen" />
-          <img src="assets/invest-3.png" alt="Investment future outcome screen" />
-          <img src="assets/invest-4.png" alt="Investment confidence screen" />
-          <img src="assets/invest-5.png" alt="Personalised investment guidance screen" />
-          <img src="assets/invest-6.png" alt="Investment portfolio screen" />
-        </div>
-        <div class="case-notes case-notes--investing">
-          <div>
-            <h3>01 / THE CHALLENGE</h3>
-            <p>The experience needed to support investors with very different levels of knowledge, confidence, and decision-making behaviour.</p>
-            <h3>02 / THE RESEARCH</h3>
-            <p>I conducted interviews and developed a persona-based personalisation model using behavioural and emotional traits.</p>
+        <section class="scene scene-case" data-scene="investing" aria-label="Personalised investing case study">
+          <div class="ghost-list ghost-list-top"><div>AI-ASSISTED TRAVEL PLANNING <span>2025</span></div></div>
+          <div class="focus-card focus-card-investing">
+            <div class="case-head"><h2>PERSONALISED INVESTING</h2><span>2022-2024</span><button class="js-go" data-go="work">⌃</button></div>
+            <p class="case-lead">I led UX for a white-label investment platform for financial intermediaries, combining behavioural research, personalisation, and product design.</p>
+            <div class="invest-gallery"><img src="assets/invest-1.png" alt="Investment screen"><img src="assets/invest-2.png" alt="Investment screen"><img src="assets/invest-3.png" alt="Investment screen"><img src="assets/invest-4.png" alt="Investment screen"><img src="assets/invest-5.png" alt="Investment screen"><img src="assets/invest-6.png" alt="Investment screen"></div>
+            <div class="case-grid"><div><h3>01 / THE CHALLENGE</h3><p>The experience needed to support investors with very different levels of knowledge, confidence, and decision-making behaviour.</p><h3>02 / THE RESEARCH</h3><p>I conducted interviews and developed a persona-based personalisation model using behavioural and emotional traits.</p></div><div><h3>03 / THE DESIGN DECISION</h3><p>Behavioural data and machine learning were used to tailor content, visuals, guidance, and recommendations. I designed and tested the personalised onboarding and recommendation journeys.</p><h3>04 / WHAT CHANGED</h3><p>The redesigned onboarding doubled NPS in early testing and established a scalable UX foundation for AI-driven personalisation.</p></div></div>
           </div>
-          <div>
-            <h3>03 / THE DESIGN DECISION</h3>
-            <p>Behavioural data and machine learning were used to tailor content, visuals, guidance, and recommendations. I designed and tested the personalised onboarding and recommendation journeys.</p>
-            <h3>04 / WHAT CHANGED</h3>
-            <p>The redesigned onboarding doubled NPS in early testing and established a scalable UX foundation for AI-driven personalisation.</p>
-          </div>
-        </div>
-      </article>
-      <div class="case-context case-context--below case-context--one">
-        <a href="#clinical"><strong>CLINICAL INTELLIGENCE</strong><span>2019-2021</span><span>⌄</span></a>
-      </div>
-    </section>
+          <div class="ghost-list ghost-list-bottom ghost-list-one"><div>CLINICAL INTELLIGENCE <span>2019-2021</span></div></div>
+        </section>
 
-    <section class="screen case-screen" id="clinical" aria-labelledby="clinical-title">
-      <div class="case-context case-context--above"><a href="#investing"><strong>PERSONALISED INVESTING</strong><span>2022-2024</span><span>⌄</span></a></div>
-      <article class="case-card case-card--clinical">
-        <div class="case-header case-header--dated">
-          <h2 id="clinical-title">CLINICAL INTELLIGENCE</h2>
-          <span class="case-year">2019-2021</span>
-          <a class="case-toggle" href="#work" aria-label="Collapse Clinical intelligence">⌃</a>
-        </div>
-        <p class="case-lead">I led UX for a clinical analytics platform, translating complex operational data into clearer workflows, dashboards, and a scalable design system.</p>
-        <div class="case-gallery case-gallery--clinical">
-          <img src="assets/clinical-1.png" alt="Clinical control room" />
-          <img src="assets/clinical-2.png" alt="Clinical intelligence dashboard" />
-        </div>
-        <div class="case-notes">
-          <div>
-            <h3>01 / THE CHALLENGE</h3>
-            <p>Research specialists needed to navigate large, complex datasets without losing the depth required for operational decisions.</p>
-            <h3>02 / THE RESEARCH</h3>
-            <p>Interviews, usability testing, and UX audits revealed different user needs, decision patterns, and information priorities.</p>
+        <section class="scene scene-case" data-scene="clinical" aria-label="Clinical intelligence case study">
+          <div class="ghost-list ghost-list-top"><div>PERSONALISED INVESTING <span>2022-2024</span></div></div>
+          <div class="focus-card focus-card-clinical">
+            <div class="case-head"><h2>CLINICAL INTELLIGENCE</h2><span>2019-2021</span><button class="js-go" data-go="work">⌃</button></div>
+            <p class="case-lead">I led UX for a clinical analytics platform, translating complex operational data into clearer workflows, dashboards, and a scalable design system.</p>
+            <div class="clinical-gallery"><img src="assets/clinical-1.png" alt="Clinical control room"><img src="assets/clinical-2.png" alt="Clinical intelligence dashboard"></div>
+            <div class="case-grid"><div><h3>01 / THE CHALLENGE</h3><p>Research specialists needed to navigate large, complex datasets without losing the depth required for operational decisions.</p><h3>02 / THE RESEARCH</h3><p>Interviews, usability testing, and UX audits revealed different user needs, decision patterns, and information priorities.</p></div><div><h3>03 / THE DESIGN DECISION</h3><p>I designed visual summaries, drill-down views, role-specific filters, and scalable navigation to help users move between overview and detail.</p><h3>04 / WHAT CHANGED</h3><p>The redesign improved decision-making speed, reduced onboarding complexity, and created reusable interaction patterns adopted across multiple programmes.</p></div></div>
           </div>
-          <div>
-            <h3>03 / THE DESIGN DECISION</h3>
-            <p>I designed visual summaries, drill-down views, role-specific filters, and scalable navigation to help users move between overview and detail.</p>
-            <h3>04 / WHAT CHANGED</h3>
-            <p>The redesign improved decision-making speed, reduced onboarding complexity, and created reusable interaction patterns adopted across multiple programmes.</p>
-          </div>
-        </div>
-      </article>
-      <a class="screen-arrow screen-arrow--bottom" href="#approach" aria-label="Next: My approach">↓</a>
-    </section>
+          <button class="nav-arrow nav-arrow-bottom js-go" data-go="approach" aria-label="Next section">↓</button>
+        </section>
 
-    <section class="screen approach-screen" id="approach" aria-labelledby="approach-title">
-      <a class="screen-arrow screen-arrow--top" href="#clinical" aria-label="Previous: Clinical intelligence">↑</a>
-      <h2 class="section-title" id="approach-title">MY APPROACH</h2>
-      <p class="approach-copy">My approach combines research, design thinking, experience and service strategy, behavioural science, and decision design to shape products around how people actually think, behave, and make choices. I use research to uncover needs, motivations, and friction; design thinking to frame and explore the right problems; and experience and service strategy to connect individual interactions into coherent end-to-end journeys. Behavioural science and decision design help me go a level deeper, understanding how confidence, cognitive load, emotion, context, and choice architecture influence behaviour. Together, these disciplines help me move from insight to strategy to design decisions that are evidence-based, intentional, and built to create meaningful change.</p>
-      <div class="approach-images approach-images--small">
-        <img src="assets/approach-1.png" alt="Research workshop notes" />
-        <img src="assets/approach-2.png" alt="Research workshop notes" />
-        <img src="assets/approach-3.png" alt="Research workshop notes" />
-      </div>
-      <div class="corner corner--one" aria-hidden="true"></div>
-      <div class="corner corner--two" aria-hidden="true"></div>
-      <div class="approach-board approach-board--left"><img src="assets/approach-board-1.png" alt="Design and research synthesis board" /></div>
-      <div class="approach-board approach-board--right"><img src="assets/approach-board-2.png" alt="End-to-end journey and service design board" /></div>
-      <a class="screen-arrow screen-arrow--bottom" href="#teams" aria-label="Next: Helping teams move forward">↓</a>
-    </section>
+        <section class="scene scene-approach" data-scene="approach" aria-label="My approach">
+          <button class="nav-arrow nav-arrow-top js-go" data-go="clinical" aria-label="Previous section">↑</button>
+          <h2 class="scene-heading">MY APPROACH</h2>
+          <p class="approach-copy">My approach combines research, design thinking, experience and service strategy, behavioural science, and decision design to shape products around how people actually think, behave, and make choices. I use research to uncover needs, motivations, and friction; design thinking to frame and explore the right problems; and experience and service strategy to connect individual interactions into coherent end-to-end journeys. Behavioural science and decision design help me go a level deeper, understanding how confidence, cognitive load, emotion, context, and choice architecture influence behaviour. Together, these disciplines help me move from insight to strategy to design decisions that are evidence-based, intentional, and built to create meaningful change.</p>
+          <div class="approach-mini"><img src="assets/approach-1.png" alt="Workshop"><img src="assets/approach-2.png" alt="Workshop"><img src="assets/approach-3.png" alt="Workshop"></div>
+          <div class="approach-board approach-board-a"><img src="assets/approach-board-1.png" alt="Research synthesis board"></div>
+          <div class="approach-board approach-board-b"><img src="assets/approach-board-2.png" alt="Service design board"></div>
+          <i class="corner c1"></i><i class="corner c2"></i>
+          <button class="nav-arrow nav-arrow-bottom js-go" data-go="teams" aria-label="Next section">↓</button>
+        </section>
 
-    <section class="screen teams-screen" id="teams" aria-labelledby="teams-title">
-      <a class="screen-arrow screen-arrow--top" href="#approach" aria-label="Previous: My approach">↑</a>
-      <h2 class="section-title" id="teams-title">HELPING TEAMS MOVE FORWARD</h2>
-      <img class="teams-photo" src="assets/teams-photo.png" alt="Kate speaking about human-centered AI" />
-      <div class="teams-copy">
-        <p>I’ve coordinated UX delivery across multiple designers, mentored junior team members, and facilitated workshops with senior business leaders. I help teams agree on priorities and explain design decisions across technical and non-technical audiences.</p>
-        <p>With a background in graphic design and visual communication, I bring attention to craft alongside UX strategy. I’ve also spoken about AI, personalisation, and product design at Warsaw.AI and DataArt IT Talks.</p>
+        <section class="scene scene-teams" data-scene="teams" aria-label="Helping teams move forward">
+          <button class="nav-arrow nav-arrow-top js-go" data-go="approach" aria-label="Previous section">↑</button>
+          <h2 class="scene-heading">HELPING TEAMS MOVE FORWARD</h2>
+          <img class="teams-photo" src="assets/teams-photo.png" alt="Kate speaking about human-centered AI" />
+          <div class="teams-copy"><p>I’ve coordinated UX delivery across multiple designers, mentored junior team members, and facilitated workshops with senior business leaders. I help teams agree on priorities and explain design decisions across technical and non-technical audiences.</p><p>With a background in graphic design and visual communication, I bring attention to craft alongside UX strategy. I’ve also spoken about AI, personalisation, and product design at Warsaw.AI and DataArt IT Talks.</p></div>
+          <div class="contact"><h2>GET IN TOUCH</h2><div><p>EMAIL: <a href="mailto:kasianikitenko@gmail.com">KASIANIKITENKO@GMAIL.COM</a></p><p>LINKEDIN: <a href="https://www.linkedin.com/in/katendesigns" target="_blank" rel="noreferrer">LINKEDIN.COM/IN/KATENDESIGNS</a></p></div></div>
+        </section>
       </div>
-      <div class="contact" aria-labelledby="contact-title">
-        <h2 id="contact-title">GET IN TOUCH</h2>
-        <div class="contact-links">
-          <p>EMAIL: <a href="mailto:kasianikitenko@gmail.com">KASIANIKITENKO@GMAIL.COM</a></p>
-          <p>LINKEDIN: <a href="https://www.linkedin.com/in/katendesigns" target="_blank" rel="noreferrer">LINKEDIN.COM/IN/KATENDESIGNS</a></p>
-        </div>
-      </div>
-    </section>
+    </div>
+
+    <div class="scroll-track" aria-hidden="true">
+      <div class="beat" data-beat="hero"></div><div class="beat" data-beat="work"></div><div class="beat" data-beat="qualtrics"></div><div class="beat" data-beat="travel"></div><div class="beat" data-beat="investing"></div><div class="beat" data-beat="clinical"></div><div class="beat" data-beat="approach"></div><div class="beat" data-beat="teams"></div>
+    </div>
   </main>
+  <script src="script.js"></script>
 </body>
 </html>
